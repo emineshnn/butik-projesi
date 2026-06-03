@@ -20,4 +20,22 @@ public class ProductService {
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
+
+    public Product updateProduct(Long id, Product updatedProduct) {
+
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ürün bulunamadı"));
+
+        product.setProductName(updatedProduct.getProductName());
+        product.setDescription(updatedProduct.getDescription());
+        product.setPrice(updatedProduct.getPrice());
+        product.setStock(updatedProduct.getStock());
+        product.setImageUrl(updatedProduct.getImageUrl());
+
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }
